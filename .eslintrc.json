@@ -1,0 +1,51 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "jest": true
+    },
+    "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "rules": {
+        "prettier/prettier": [
+            "error",
+            {
+                "endOfLine": "auto"
+            }
+        ],
+        "react/prop-types": 0,
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/no-unused-vars": "warn"
+    },
+    "plugins": [
+        "@typescript-eslint",
+        "prettier",
+        "jsx-a11y"
+    ],
+    "globals": {
+        "browser": "writable",
+        "window": "readonly",
+        "test": "writable",
+        "expect": "writable",
+        "JSX": "readonly",
+        "global": "writeable",
+        "__dirname": "readonly"
+    },
+    "settings": {
+        "jsx-a11y": {
+          "components": {
+            "Logo": "link",
+            "ActionButton": "button",
+            "Button": "button"
+          }
+        }
+      }
+}
