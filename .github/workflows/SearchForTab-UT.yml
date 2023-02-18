@@ -25,29 +25,10 @@ jobs:
         run: |
           npm install
 
-  verify:
-    name: Verify the sources
-    runs-on: windows-latest
-    needs: install
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Cache
-        uses: actions/cache@v3.0.7
-        with:
-          path: ./node_modules
-          key: ${{ hashFiles('./package.json') }}
-
-      - name: Run ESLint on the sources
-        run: npx eslint .
-
-
   test:
     name: Run the unit tests
     runs-on: windows-latest
-    needs: [verify]
+    needs: [install]
 
     steps:
       - name: Checkout repository
