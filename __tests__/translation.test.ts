@@ -1,4 +1,8 @@
-import {getSupportedBrowserLanguage, getLanguageSource, SupportedLanguages} from "../app/src/engine/i18n";
+import {
+    getSupportedBrowserLanguage,
+    getLanguageSource,
+    SupportedLanguages,
+} from "../app/src/engine/i18n";
 
 describe("i18n", () => {
     it("returns the correct language according to browser settings", () => {
