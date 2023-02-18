@@ -1,3 +1,22 @@
+html, body {
+  background-color:whitesmoke ;
+}
 .popup-view {
   align-content: space-around;
+  background-color: whitesmoke;
+}
+.tab-search-entry-list-container {
+  margin: 10px;
+}
+.tab-search-entry-list {
+  padding: 5px;
+  border-style: ridge;
+  border-width: 2px;
+  border-radius: 2px;
+  border-color: ivory;
+  box-shadow: 0px 3px 3px grey;
+}
+textarea:focus, input:focus {
+  outline: none;
+  box-shadow: 0px 3px 3px lightsteelblue;
 }
