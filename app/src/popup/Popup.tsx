@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import ReactDOM from "react-dom";
+import {TextInput} from "./components/TextInput";
 
 export const Popup = (): JSX.Element => {
     useEffect(() => {
@@ -8,7 +9,11 @@ export const Popup = (): JSX.Element => {
         });
     }, [document]);
 
-    return <div className="popup-view"></div>;
+    return (
+        <div className="popup-view">
+            <TextInput />
+        </div>
+    );
 };
 
 ReactDOM.render(<Popup />, document.getElementById("root"));
