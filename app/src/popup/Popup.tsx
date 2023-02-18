@@ -9,9 +9,16 @@ export const Popup = (): JSX.Element => {
         });
     }, [document]);
 
+    const textInputID = "tab-search-entry-list-id";
+
+    const onChange = () => {
+        const input = document.getElementById(textInputID) as HTMLInputElement;
+        console.log(`onChange called with: ${input?.value}`);
+    };
+
     return (
         <div className="popup-view">
-            <TextInput />
+            <TextInput id={textInputID} onChange={onChange} />
         </div>
     );
 };

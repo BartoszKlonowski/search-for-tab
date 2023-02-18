@@ -1,11 +1,17 @@
 import React from "react";
 
-export const TextInput = () => {
+type Props = {
+    id: string;
+    onChange: () => void;
+};
+
+export const TextInput = (props: Props) => {
     return (
         <div className="tab-search-entry-list-container">
             <input
+                onChange={props.onChange}
                 className="tab-search-entry-list"
-                id="tab-search-entry-list-id"
+                id={props.id}
                 placeholder="..."
                 type="text"
             />
