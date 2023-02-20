@@ -1,5 +1,6 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import ReactDOM from "react-dom";
+import {TabResultsList} from "./components/TabResultsList";
 import {TextInput} from "./components/TextInput";
 
 export const Popup = (): JSX.Element => {
@@ -11,14 +12,16 @@ export const Popup = (): JSX.Element => {
 
     const textInputID = "tab-search-entry-list-id";
 
+    const [inputValue, setInputValue] = useState("");
+
     const onChange = () => {
-        const input = document.getElementById(textInputID) as HTMLInputElement;
-        console.log(`onChange called with: ${input?.value}`);
+        setInputValue((document.getElementById(textInputID) as HTMLInputElement).value);
     };
 
     return (
         <div className="popup-view">
             <TextInput id={textInputID} onChange={onChange} />
+            <TabResultsList tabSearchPhrase={inputValue} />
         </div>
     );
 };
