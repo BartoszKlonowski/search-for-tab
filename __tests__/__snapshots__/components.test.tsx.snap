@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TabResultsList renders correctly according to snapshot 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": null,
+              "props": Object {
+                "className": "tab-tile-icon-container",
+              },
+              "type": "div",
+            },
+            Object {
+              "children": Array [
+                "some-results-for-test-phrase",
+              ],
+              "props": Object {
+                "className": "tab-tile-title-container",
+              },
+              "type": "div",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": null,
+                  "props": Object {
+                    "className": "tab-tile-goto-action-icon-container",
+                  },
+                  "type": "div",
+                },
+                Object {
+                  "children": null,
+                  "props": Object {
+                    "className": "tab-tile-close-action-icon-container",
+                  },
+                  "type": "div",
+                },
+              ],
+              "props": Object {
+                "className": "tab-tile-actions-container",
+              },
+              "type": "div",
+            },
+          ],
+          "props": Object {},
+          "type": "div",
+        },
+      ],
+      "props": Object {},
+      "type": "li",
+    },
+  ],
+  "props": Object {
+    "className": "tab-search-results-list-container",
+  },
+  "type": "div",
+}
+`;
