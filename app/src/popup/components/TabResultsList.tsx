@@ -1,5 +1,6 @@
 import React, {useMemo, useState} from "react";
 import Browser from "webextension-polyfill";
+import {TabResultTile} from "./TabResultTile";
 
 type Props = {
     tabSearchPhrase: string;
@@ -8,6 +9,10 @@ type Props = {
 export const TabResultsList = (props: Props) => {
     const {tabSearchPhrase} = props;
     const [allTabs, setAllTabs] = useState<Browser.Tabs.Tab[]>();
+
+    const renderSearchResultTile = (tabTitle: string): JSX.Element => {
+        return <TabResultTile tabTitle={tabTitle} />;
+    };
 
     useMemo(
         () =>
@@ -28,5 +33,13 @@ export const TabResultsList = (props: Props) => {
         [tabSearchPhrase]
     );
 
-    return <div className="tab-search-results-list-container"></div>;
+    return (
+        <div className="tab-search-results-list-container">
+            {allTabs?.map((tab) => (
+                <li key={`searchResultTile-${tab.title}`}>
+                    {renderSearchResultTile(tab.title || "")}
+                </li>
+            ))}
+        </div>
+    );
 };
