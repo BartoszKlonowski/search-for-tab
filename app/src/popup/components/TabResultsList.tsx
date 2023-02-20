@@ -8,6 +8,11 @@ type Props = {
 
 export const TabResultsList = (props: Props) => {
     const {tabSearchPhrase} = props;
+
+    if (!tabSearchPhrase.length) {
+        return null;
+    }
+
     const [allTabs, setAllTabs] = useState<Browser.Tabs.Tab[]>();
 
     const renderSearchResultTile = (tabTitle: string): JSX.Element => {
@@ -43,3 +48,5 @@ export const TabResultsList = (props: Props) => {
         </div>
     );
 };
+
+export default TabResultsList;
