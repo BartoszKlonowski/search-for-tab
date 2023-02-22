@@ -1,6 +1,7 @@
 import React from "react";
 import TestRenderer, {act, ReactTestInstance, ReactTestRenderer} from "react-test-renderer";
 import TabResultsList from "../app/src/popup/components/TabResultsList";
+import {TabResultTile} from "../app/src/popup/components/TabResultTile";
 
 function renderElement(element: JSX.Element): ReactTestRenderer {
     const component = TestRenderer.create(element);
@@ -66,5 +67,44 @@ describe("TabResultsList", () => {
         const resultsList = await renderElementAsObject(<TabResultsList tabSearchPhrase="very" />);
         expect(resultsList).toBeDefined();
         expect(resultsList.children.length).toBe(3);
+    });
+});
+
+describe("TabResultTile", () => {
+    it("renders correctly according to snapshot", async () => {
+        const resultTile = renderElement(
+            <TabResultTile tabTitle="test-phrase" tabUrl="test-url" />
+        );
+        expect(resultTile.toJSON()).toMatchSnapshot();
+    });
+
+    it("uses the correct domain for a certain tab URL", async () => {
+        const resultTileWithDefaultURL = await renderElementAsObject(
+            <TabResultTile tabTitle="fake-title" tabUrl="www.google.com" />
+        );
+        let resultTileIcon = getChild(getChild(resultTileWithDefaultURL, 0), 0);
+        expect(resultTileIcon.props.src).toBe("https://icons.duckduckgo.com/ip3/google.com.ico");
+        const resultTileWithHTTPSURL = await renderElementAsObject(
+            <TabResultTile tabTitle="fake-title" tabUrl="https://google.com" />
+        );
+        resultTileIcon = getChild(getChild(resultTileWithHTTPSURL, 0), 0);
+        expect(resultTileIcon.props.src).toBe("https://icons.duckduckgo.com/ip3/google.com.ico");
+        const resultTileWithComplexURL = await renderElementAsObject(
+            <TabResultTile tabTitle="fake-title" tabUrl="http://google.com/very-complex?url" />
+        );
+        resultTileIcon = getChild(getChild(resultTileWithComplexURL, 0), 0);
+        expect(resultTileIcon.props.src).toBe("https://icons.duckduckgo.com/ip3/google.com.ico");
+    });
+
+    it("uses the default favicon if exists", async () => {
+        const resultTileWithDefaultURL = await renderElementAsObject(
+            <TabResultTile
+                tabTitle="fake-title"
+                favicon="existing-correct-icon.ico"
+                tabUrl="www.google.com"
+            />
+        );
+        const resultTileIcon = getChild(getChild(resultTileWithDefaultURL, 0), 0);
+        expect(resultTileIcon.props.src).toBe("existing-correct-icon.ico");
     });
 });
