@@ -62,7 +62,7 @@ img {
 }
 .tab-tile-title-container {
   margin: 5px;
-  cursor: alias;
+  cursor: default;
   width: 400px;
 }
 .tab-tile-title {
