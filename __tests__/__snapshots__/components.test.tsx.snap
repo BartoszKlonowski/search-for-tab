@@ -1,5 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`TabResultTile renders correctly according to snapshot 1`] = `
+<div
+  className="tab-tile-container"
+>
+  <div
+    className="tab-tile-icon-container"
+  >
+    <img />
+  </div>
+  <div
+    className="tab-tile-title-container"
+  >
+    <div
+      className="tab-tile-title"
+    >
+      test-phrase
+    </div>
+  </div>
+  <div
+    className="tab-tile-close-action-icon-container"
+  >
+    <div>
+      +
+    </div>
+  </div>
+</div>
+`;
+
 exports[`TabResultsList renders correctly according to snapshot 1`] = `
 Object {
   "children": Array [
@@ -8,7 +36,13 @@ Object {
         Object {
           "children": Array [
             Object {
-              "children": null,
+              "children": Array [
+                Object {
+                  "children": null,
+                  "props": Object {},
+                  "type": "img",
+                },
+              ],
               "props": Object {
                 "className": "tab-tile-icon-container",
               },
@@ -16,7 +50,15 @@ Object {
             },
             Object {
               "children": Array [
-                "some-results-for-test-phrase",
+                Object {
+                  "children": Array [
+                    "some-results-for-test-phrase",
+                  ],
+                  "props": Object {
+                    "className": "tab-tile-title",
+                  },
+                  "type": "div",
+                },
               ],
               "props": Object {
                 "className": "tab-tile-title-container",
@@ -26,27 +68,22 @@ Object {
             Object {
               "children": Array [
                 Object {
-                  "children": null,
-                  "props": Object {
-                    "className": "tab-tile-goto-action-icon-container",
-                  },
-                  "type": "div",
-                },
-                Object {
-                  "children": null,
-                  "props": Object {
-                    "className": "tab-tile-close-action-icon-container",
-                  },
+                  "children": Array [
+                    "+",
+                  ],
+                  "props": Object {},
                   "type": "div",
                 },
               ],
               "props": Object {
-                "className": "tab-tile-actions-container",
+                "className": "tab-tile-close-action-icon-container",
               },
               "type": "div",
             },
           ],
-          "props": Object {},
+          "props": Object {
+            "className": "tab-tile-container",
+          },
           "type": "div",
         },
       ],

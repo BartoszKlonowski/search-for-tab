@@ -1,6 +1,7 @@
 import React from "react";
 import TestRenderer, {act, ReactTestInstance, ReactTestRenderer} from "react-test-renderer";
 import TabResultsList from "../app/src/popup/components/TabResultsList";
+import { TabResultTile } from "../app/src/popup/components/TabResultTile";
 
 function renderElement(element: JSX.Element): ReactTestRenderer {
     const component = TestRenderer.create(element);
@@ -66,5 +67,14 @@ describe("TabResultsList", () => {
         const resultsList = await renderElementAsObject(<TabResultsList tabSearchPhrase="very" />);
         expect(resultsList).toBeDefined();
         expect(resultsList.children.length).toBe(3);
+    });
+});
+
+describe("TabResultTile", () => {
+    it("renders correctly according to snapshot", async () => {
+        const resultsList = renderElement(
+            <TabResultTile tabTitle="test-phrase" />
+        );
+        expect(resultsList.toJSON()).toMatchSnapshot();
     });
 });
