@@ -7,7 +7,9 @@ exports[`TabResultTile renders correctly according to snapshot 1`] = `
   <div
     className="tab-tile-icon-container"
   >
-    <img />
+    <img
+      src="https://icons.duckduckgo.com/ip3/null.ico"
+    />
   </div>
   <div
     className="tab-tile-title-container"
@@ -39,7 +41,9 @@ Object {
               "children": Array [
                 Object {
                   "children": null,
-                  "props": Object {},
+                  "props": Object {
+                    "src": "https://icons.duckduckgo.com/ip3/null.ico",
+                  },
                   "type": "img",
                 },
               ],

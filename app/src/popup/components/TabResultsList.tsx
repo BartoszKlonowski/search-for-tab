@@ -15,8 +15,12 @@ export const TabResultsList = (props: Props) => {
 
     const [allTabs, setAllTabs] = useState<Browser.Tabs.Tab[]>();
 
-    const renderSearchResultTile = (tabTitle: string): JSX.Element => {
-        return <TabResultTile tabTitle={tabTitle} />;
+    const renderSearchResultTile = (
+        tabTitle: string,
+        tabUrl: string,
+        tabFavicon?: string
+    ): JSX.Element => {
+        return <TabResultTile tabTitle={tabTitle} tabUrl={tabUrl} favicon={tabFavicon} />;
     };
 
     useMemo(
@@ -42,7 +46,7 @@ export const TabResultsList = (props: Props) => {
         <div className="tab-search-results-list-container">
             {allTabs?.map((tab) => (
                 <li key={`searchResultTile-${tab.title}`}>
-                    {renderSearchResultTile(tab.title || "")}
+                    {renderSearchResultTile(tab.title || "", tab.url || "", tab.favIconUrl)}
                 </li>
             ))}
         </div>
