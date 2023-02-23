@@ -25,7 +25,7 @@ describe("TabResultsList", () => {
     it("renders correctly according to snapshot", async () => {
         global.browser.tabs.query = () => {
             return new Promise((resolve) => {
-                resolve([{title: "some-results-for-test-phrase"}]);
+                resolve([{id: 1, title: "some-results-for-test-phrase"}]);
             });
         };
         const resultsList = await renderElementAsObject(
@@ -42,7 +42,7 @@ describe("TabResultsList", () => {
     it("renders a list when given some search phrase", async () => {
         global.browser.tabs.query = () => {
             return new Promise((resolve) => {
-                resolve([{title: "some-results-test-search-phrase"}]);
+                resolve([{id: 1, title: "some-results-test-search-phrase"}]);
             });
         };
         const resultsList = await renderElementAsObject(
@@ -56,11 +56,11 @@ describe("TabResultsList", () => {
         global.browser.tabs.query = () => {
             return new Promise((resolve) => {
                 resolve([
-                    {title: "very rarely visited tab"},
-                    {title: "tab-vary-with-content"},
-                    {title: "tab-very-interesting"},
-                    {title: "tab not very empty but matching"},
-                    {title: "some-result-with-dummy-title"},
+                    {id: 1, title: "very rarely visited tab"},
+                    {id: 2, title: "tab-vary-with-content"},
+                    {id: 3, title: "tab-very-interesting"},
+                    {id: 4, title: "tab not very empty but matching"},
+                    {id: 5, title: "some-result-with-dummy-title"},
                 ]);
             });
         };
@@ -73,25 +73,25 @@ describe("TabResultsList", () => {
 describe("TabResultTile", () => {
     it("renders correctly according to snapshot", async () => {
         const resultTile = renderElement(
-            <TabResultTile tabId={0} tabTitle="test-phrase" tabUrl="test-url" />
+            <TabResultTile tabId={1} tabTitle="test-phrase" tabUrl="test-url" />
         );
         expect(resultTile.toJSON()).toMatchSnapshot();
     });
 
     it("uses the correct domain for a certain tab URL", async () => {
         const resultTileWithDefaultURL = await renderElementAsObject(
-            <TabResultTile tabId={0} tabTitle="fake-title" tabUrl="www.google.com" />
+            <TabResultTile tabId={1} tabTitle="fake-title" tabUrl="www.google.com" />
         );
         let resultTileIcon = getChild(getChild(resultTileWithDefaultURL, 0), 0);
         expect(resultTileIcon.props.src).toBe("https://icons.duckduckgo.com/ip3/google.com.ico");
         const resultTileWithHTTPSURL = await renderElementAsObject(
-            <TabResultTile tabId={0} tabTitle="fake-title" tabUrl="https://google.com" />
+            <TabResultTile tabId={1} tabTitle="fake-title" tabUrl="https://google.com" />
         );
         resultTileIcon = getChild(getChild(resultTileWithHTTPSURL, 0), 0);
         expect(resultTileIcon.props.src).toBe("https://icons.duckduckgo.com/ip3/google.com.ico");
         const resultTileWithComplexURL = await renderElementAsObject(
             <TabResultTile
-                tabId={0}
+                tabId={1}
                 tabTitle="fake-title"
                 tabUrl="http://google.com/very-complex?url"
             />
@@ -103,7 +103,7 @@ describe("TabResultTile", () => {
     it("uses the default favicon if exists", async () => {
         const resultTileWithDefaultURL = await renderElementAsObject(
             <TabResultTile
-                tabId={0}
+                tabId={1}
                 tabTitle="fake-title"
                 favicon="existing-correct-icon.ico"
                 tabUrl="www.google.com"
@@ -111,5 +111,16 @@ describe("TabResultTile", () => {
         );
         const resultTileIcon = getChild(getChild(resultTileWithDefaultURL, 0), 0);
         expect(resultTileIcon.props.src).toBe("existing-correct-icon.ico");
+    });
+
+    it("does not render when the ID of the tab is broken", async () => {
+        let resultTile = await renderElementAsObject(
+            <TabResultTile tabId={0} tabTitle="fake-title" tabUrl="fake-tab-url" />
+        );
+        expect(resultTile).toBeNull();
+        resultTile = await renderElementAsObject(
+            <TabResultTile tabId={undefined} tabTitle="fake-title" tabUrl="fake-tab-url" />
+        );
+        expect(resultTile).toBeNull();
     });
 });

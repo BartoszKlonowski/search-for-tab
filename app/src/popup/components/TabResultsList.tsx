@@ -16,7 +16,7 @@ export const TabResultsList = (props: Props) => {
     const [allTabs, setAllTabs] = useState<Browser.Tabs.Tab[]>();
 
     const renderSearchResultTile = (
-        tabId: number,
+        tabId: number | undefined,
         tabTitle: string,
         tabUrl: string,
         tabFavicon?: string
@@ -49,12 +49,7 @@ export const TabResultsList = (props: Props) => {
         <div className="tab-search-results-list-container">
             {allTabs?.map((tab) => (
                 <li key={`searchResultTile-${tab.title}`}>
-                    {renderSearchResultTile(
-                        tab.id || 0,
-                        tab.title || "",
-                        tab.url || "",
-                        tab.favIconUrl
-                    )}
+                    {renderSearchResultTile(tab.id, tab.title || "", tab.url || "", tab.favIconUrl)}
                 </li>
             ))}
         </div>

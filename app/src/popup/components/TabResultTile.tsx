@@ -1,14 +1,18 @@
 import React from "react";
 
 type Props = {
-    tabId: number;
+    tabId: number | undefined;
     tabTitle: string;
     tabUrl: string;
     favicon?: string;
 };
 
 export const TabResultTile = (props: Props) => {
-    const {tabTitle, tabUrl, favicon} = props;
+    const {tabId, tabTitle, tabUrl, favicon} = props;
+
+    if (!tabId) {
+        return null;
+    }
 
     const trimTitleText = (): string => {
         const maxTitleTextLength = 60;
