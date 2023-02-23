@@ -4,12 +4,13 @@ import Browser from "webextension-polyfill";
 type Props = {
     tabId: number | undefined;
     tabTitle: string;
+    onClose: (id: number) => void;
     tabUrl: string;
     favicon?: string;
 };
 
 export const TabResultTile = (props: Props) => {
-    const {tabId, tabTitle, tabUrl, favicon} = props;
+    const {tabId, tabTitle, tabUrl, favicon, onClose} = props;
 
     if (!tabId) {
         return null;
@@ -20,18 +21,23 @@ export const TabResultTile = (props: Props) => {
             .update(tabId, {
                 active: true,
             })
-            .catch((error) => {
-                console.error("ERROR: making tab active finished with ", error.message);
-            })
             .then(() => {
                 window.close();
+            })
+            .catch((error) => {
+                console.error("ERROR: making tab active finished with ", error.message);
             });
     };
 
     const closeTab = () => {
-        Browser.tabs.remove(tabId).catch((error) => {
-            console.error("ERROR: making tab active finished with ", error.message);
-        });
+        Browser.tabs
+            .remove(tabId)
+            .then(() => {
+                onClose(tabId);
+            })
+            .catch((error) => {
+                console.error("ERROR: making tab active finished with ", error.message);
+            });
     };
 
     const trimTitleText = (): string => {
