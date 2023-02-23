@@ -23,6 +23,7 @@ exports[`TabResultTile renders correctly according to snapshot 1`] = `
   </div>
   <div
     className="tab-tile-close-action-icon-container"
+    onClick={[Function]}
   >
     <div>
       +

@@ -15,6 +15,10 @@ export const TabResultsList = (props: Props) => {
 
     const [allTabs, setAllTabs] = useState<Browser.Tabs.Tab[]>();
 
+    const onClose = (tabId: number) => {
+        setAllTabs(allTabs?.filter((tab) => tab.id !== tabId));
+    };
+
     const renderSearchResultTile = (
         tabId: number | undefined,
         tabTitle: string,
@@ -22,7 +26,13 @@ export const TabResultsList = (props: Props) => {
         tabFavicon?: string
     ): JSX.Element => {
         return (
-            <TabResultTile tabId={tabId} tabTitle={tabTitle} tabUrl={tabUrl} favicon={tabFavicon} />
+            <TabResultTile
+                tabId={tabId}
+                tabTitle={tabTitle}
+                onClose={onClose}
+                tabUrl={tabUrl}
+                favicon={tabFavicon}
+            />
         );
     };
 

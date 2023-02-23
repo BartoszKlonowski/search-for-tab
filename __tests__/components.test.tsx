@@ -73,24 +73,48 @@ describe("TabResultsList", () => {
 describe("TabResultTile", () => {
     it("renders correctly according to snapshot", async () => {
         const resultTile = renderElement(
-            <TabResultTile tabId={1} tabTitle="test-phrase" tabUrl="test-url" />
+            <TabResultTile
+                onClose={(id: number) => {
+                    id;
+                }}
+                tabId={1}
+                tabTitle="test-phrase"
+                tabUrl="test-url"
+            />
         );
         expect(resultTile.toJSON()).toMatchSnapshot();
     });
 
     it("uses the correct domain for a certain tab URL", async () => {
         const resultTileWithDefaultURL = await renderElementAsObject(
-            <TabResultTile tabId={1} tabTitle="fake-title" tabUrl="www.google.com" />
+            <TabResultTile
+                onClose={(id: number) => {
+                    id;
+                }}
+                tabId={1}
+                tabTitle="fake-title"
+                tabUrl="www.google.com"
+            />
         );
         let resultTileIcon = getChild(getChild(resultTileWithDefaultURL, 0), 0);
         expect(resultTileIcon.props.src).toBe("https://icons.duckduckgo.com/ip3/google.com.ico");
         const resultTileWithHTTPSURL = await renderElementAsObject(
-            <TabResultTile tabId={1} tabTitle="fake-title" tabUrl="https://google.com" />
+            <TabResultTile
+                onClose={(id: number) => {
+                    id;
+                }}
+                tabId={1}
+                tabTitle="fake-title"
+                tabUrl="https://google.com"
+            />
         );
         resultTileIcon = getChild(getChild(resultTileWithHTTPSURL, 0), 0);
         expect(resultTileIcon.props.src).toBe("https://icons.duckduckgo.com/ip3/google.com.ico");
         const resultTileWithComplexURL = await renderElementAsObject(
             <TabResultTile
+                onClose={(id: number) => {
+                    id;
+                }}
                 tabId={1}
                 tabTitle="fake-title"
                 tabUrl="http://google.com/very-complex?url"
@@ -103,6 +127,9 @@ describe("TabResultTile", () => {
     it("uses the default favicon if exists", async () => {
         const resultTileWithDefaultURL = await renderElementAsObject(
             <TabResultTile
+                onClose={(id: number) => {
+                    id;
+                }}
                 tabId={1}
                 tabTitle="fake-title"
                 favicon="existing-correct-icon.ico"
@@ -115,11 +142,25 @@ describe("TabResultTile", () => {
 
     it("does not render when the ID of the tab is broken", async () => {
         let resultTile = await renderElementAsObject(
-            <TabResultTile tabId={0} tabTitle="fake-title" tabUrl="fake-tab-url" />
+            <TabResultTile
+                onClose={(id: number) => {
+                    id;
+                }}
+                tabId={0}
+                tabTitle="fake-title"
+                tabUrl="fake-tab-url"
+            />
         );
         expect(resultTile).toBeNull();
         resultTile = await renderElementAsObject(
-            <TabResultTile tabId={undefined} tabTitle="fake-title" tabUrl="fake-tab-url" />
+            <TabResultTile
+                onClose={(id: number) => {
+                    id;
+                }}
+                tabId={undefined}
+                tabTitle="fake-title"
+                tabUrl="fake-tab-url"
+            />
         );
         expect(resultTile).toBeNull();
     });
@@ -131,9 +172,36 @@ describe("TabResultTile", () => {
             });
         };
         const tabTile = await renderElementAsObject(
-            <TabResultTile tabId={11345} tabTitle="fake-title" tabUrl="fake-tab-url" />
+            <TabResultTile
+                onClose={(id: number) => {
+                    id;
+                }}
+                tabId={11345}
+                tabTitle="fake-title"
+                tabUrl="fake-tab-url"
+            />
         );
         const tabTileClickableContainer = getChild(tabTile, 1);
+        expect(tabTileClickableContainer.props).toBeDefined();
+    });
+
+    it("closes selected tab by clicking close icon", async () => {
+        global.browser.tabs.update = () => {
+            return new Promise(() => {
+                return true;
+            });
+        };
+        const tabTile = await renderElementAsObject(
+            <TabResultTile
+                onClose={(id: number) => {
+                    id;
+                }}
+                tabId={11345}
+                tabTitle="fake-title"
+                tabUrl="fake-tab-url"
+            />
+        );
+        const tabTileClickableContainer = getChild(tabTile, 2);
         expect(tabTileClickableContainer.props).toBeDefined();
     });
 });
