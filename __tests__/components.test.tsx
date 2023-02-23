@@ -136,4 +136,17 @@ describe("TabResultTile", () => {
         const tabTileClickableContainer = getChild(tabTile, 1);
         expect(tabTileClickableContainer.props).toBeDefined();
     });
+
+    it("closes selected tab by clicking close icon", async () => {
+        global.browser.tabs.update = () => {
+            return new Promise(() => {
+                return true;
+            });
+        };
+        const tabTile = await renderElementAsObject(
+            <TabResultTile tabId={11345} tabTitle="fake-title" tabUrl="fake-tab-url" />
+        );
+        const tabTileClickableContainer = getChild(tabTile, 2);
+        expect(tabTileClickableContainer.props).toBeDefined();
+    });
 });

@@ -28,6 +28,12 @@ export const TabResultTile = (props: Props) => {
             });
     };
 
+    const closeTab = () => {
+        Browser.tabs.remove(tabId).catch((error) => {
+            console.error("ERROR: making tab active finished with ", error.message);
+        });
+    };
+
     const trimTitleText = (): string => {
         const maxTitleTextLength = 60;
         return tabTitle.length > maxTitleTextLength
@@ -55,7 +61,7 @@ export const TabResultTile = (props: Props) => {
             <div className="tab-tile-title-container" onClick={makeTabActive}>
                 <div className="tab-tile-title">{trimTitleText()}</div>
             </div>
-            <div className="tab-tile-close-action-icon-container">
+            <div className="tab-tile-close-action-icon-container" onClick={closeTab}>
                 <div>{"+"}</div>
             </div>
         </div>
