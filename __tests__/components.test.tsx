@@ -73,24 +73,28 @@ describe("TabResultsList", () => {
 describe("TabResultTile", () => {
     it("renders correctly according to snapshot", async () => {
         const resultTile = renderElement(
-            <TabResultTile tabTitle="test-phrase" tabUrl="test-url" />
+            <TabResultTile tabId={0} tabTitle="test-phrase" tabUrl="test-url" />
         );
         expect(resultTile.toJSON()).toMatchSnapshot();
     });
 
     it("uses the correct domain for a certain tab URL", async () => {
         const resultTileWithDefaultURL = await renderElementAsObject(
-            <TabResultTile tabTitle="fake-title" tabUrl="www.google.com" />
+            <TabResultTile tabId={0} tabTitle="fake-title" tabUrl="www.google.com" />
         );
         let resultTileIcon = getChild(getChild(resultTileWithDefaultURL, 0), 0);
         expect(resultTileIcon.props.src).toBe("https://icons.duckduckgo.com/ip3/google.com.ico");
         const resultTileWithHTTPSURL = await renderElementAsObject(
-            <TabResultTile tabTitle="fake-title" tabUrl="https://google.com" />
+            <TabResultTile tabId={0} tabTitle="fake-title" tabUrl="https://google.com" />
         );
         resultTileIcon = getChild(getChild(resultTileWithHTTPSURL, 0), 0);
         expect(resultTileIcon.props.src).toBe("https://icons.duckduckgo.com/ip3/google.com.ico");
         const resultTileWithComplexURL = await renderElementAsObject(
-            <TabResultTile tabTitle="fake-title" tabUrl="http://google.com/very-complex?url" />
+            <TabResultTile
+                tabId={0}
+                tabTitle="fake-title"
+                tabUrl="http://google.com/very-complex?url"
+            />
         );
         resultTileIcon = getChild(getChild(resultTileWithComplexURL, 0), 0);
         expect(resultTileIcon.props.src).toBe("https://icons.duckduckgo.com/ip3/google.com.ico");
@@ -99,6 +103,7 @@ describe("TabResultTile", () => {
     it("uses the default favicon if exists", async () => {
         const resultTileWithDefaultURL = await renderElementAsObject(
             <TabResultTile
+                tabId={0}
                 tabTitle="fake-title"
                 favicon="existing-correct-icon.ico"
                 tabUrl="www.google.com"
