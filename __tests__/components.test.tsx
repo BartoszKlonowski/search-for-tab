@@ -123,4 +123,17 @@ describe("TabResultTile", () => {
         );
         expect(resultTile).toBeNull();
     });
+
+    it("goes to selected tab by making it active", async () => {
+        global.browser.tabs.update = () => {
+            return new Promise(() => {
+                return true;
+            });
+        };
+        const tabTile = await renderElementAsObject(
+            <TabResultTile tabId={11345} tabTitle="fake-title" tabUrl="fake-tab-url" />
+        );
+        const tabTileClickableContainer = getChild(tabTile, 1);
+        expect(tabTileClickableContainer.props).toBeDefined();
+    });
 });
