@@ -13,6 +13,7 @@ exports[`TabResultTile renders correctly according to snapshot 1`] = `
   </div>
   <div
     className="tab-tile-title-container"
+    onClick={[Function]}
   >
     <div
       className="tab-tile-title"

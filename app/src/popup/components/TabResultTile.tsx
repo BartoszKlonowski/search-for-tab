@@ -1,13 +1,32 @@
 import React from "react";
+import Browser from "webextension-polyfill";
 
 type Props = {
+    tabId: number | undefined;
     tabTitle: string;
     tabUrl: string;
     favicon?: string;
 };
 
 export const TabResultTile = (props: Props) => {
-    const {tabTitle, tabUrl, favicon} = props;
+    const {tabId, tabTitle, tabUrl, favicon} = props;
+
+    if (!tabId) {
+        return null;
+    }
+
+    const makeTabActive = () => {
+        Browser.tabs
+            .update(tabId, {
+                active: true,
+            })
+            .catch((error) => {
+                console.error("ERROR: making tab active finished with ", error.message);
+            })
+            .then(() => {
+                window.close();
+            });
+    };
 
     const trimTitleText = (): string => {
         const maxTitleTextLength = 60;
@@ -33,7 +52,7 @@ export const TabResultTile = (props: Props) => {
             <div className="tab-tile-icon-container">
                 <img src={getTabIcon()} />
             </div>
-            <div className="tab-tile-title-container">
+            <div className="tab-tile-title-container" onClick={makeTabActive}>
                 <div className="tab-tile-title">{trimTitleText()}</div>
             </div>
             <div className="tab-tile-close-action-icon-container">
