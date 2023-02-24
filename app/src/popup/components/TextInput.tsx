@@ -8,6 +8,7 @@ type Props = {
 export const TextInput = (props: Props) => {
     return (
         <div className="tab-search-entry-list-container">
+            <i className="glyphicon glyphicon-search" />
             <input
                 onChange={props.onChange}
                 className="tab-search-entry-list"
