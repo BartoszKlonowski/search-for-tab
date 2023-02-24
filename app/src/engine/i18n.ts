@@ -1,7 +1,10 @@
 import Browser from "webextension-polyfill";
 
 export enum SupportedLanguages {
+    DE = "de",
     EN = "en",
+    FR = "fr",
+    PL = "pl",
 }
 
 export function getSupportedBrowserLanguage() {
