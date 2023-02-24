@@ -1,4 +1,5 @@
 html, body {
+  width: 500px;
   background-color:whitesmoke ;
 }
 .popup-view {
@@ -6,12 +7,18 @@ html, body {
   background-color: whitesmoke;
 }
 .tab-search-entry-list-container {
-  margin: 10px;
+  margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .tab-search-entry-list {
   padding: 5px;
+  width: 200px;
   border-style: ridge;
-  border-width: 2px;
+  border-top-width: 0px;
+  border-left-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 2px;
   border-radius: 2px;
   border-color: ivory;
   box-shadow: 0px 3px 3px grey;
@@ -21,9 +28,9 @@ textarea:focus, input:focus {
   box-shadow: 0px 3px 3px lightsteelblue;
 }
 .tab-tile-container {
-  margin: 20px;
+  margin: 15px;
   height: 40px;
-  width: 480px;
+  width: 460px;
   display: flex;
   background-color: white;
   flex-direction: row;
@@ -41,6 +48,13 @@ textarea:focus, input:focus {
 }
 .tab-search-results-list-container {
   list-style: none;
+  padding: 5px;
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  list-style: none;
+  scrollbar-width: thin;
+  scrollbar-color: lightsteelblue transparent;
 }
 .tab-tile-icon-container {
   margin: 5px;
