@@ -6,6 +6,7 @@ exports[`TabResultTile renders correctly according to snapshot 1`] = `
 >
   <div
     className="tab-tile-icon-container"
+    title="test-url"
   >
     <img
       src="https://icons.duckduckgo.com/ip3/null.ico"
@@ -14,6 +15,7 @@ exports[`TabResultTile renders correctly according to snapshot 1`] = `
   <div
     className="tab-tile-title-container"
     onClick={[Function]}
+    title="Go to: null"
   >
     <div
       className="tab-tile-title"
@@ -24,6 +26,7 @@ exports[`TabResultTile renders correctly according to snapshot 1`] = `
   <div
     className="tab-tile-close-action-icon-container"
     onClick={[Function]}
+    title="Close"
   >
     <div>
       +
@@ -51,6 +54,7 @@ Object {
               ],
               "props": Object {
                 "className": "tab-tile-icon-container",
+                "title": "",
               },
               "type": "div",
             },
@@ -68,6 +72,7 @@ Object {
               ],
               "props": Object {
                 "className": "tab-tile-title-container",
+                "title": "Go to: null",
               },
               "type": "div",
             },
@@ -83,6 +88,7 @@ Object {
               ],
               "props": Object {
                 "className": "tab-tile-close-action-icon-container",
+                "title": "Close",
               },
               "type": "div",
             },
