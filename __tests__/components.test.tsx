@@ -204,4 +204,25 @@ describe("TabResultTile", () => {
         const tabTileClickableContainer = getChild(tabTile, 2);
         expect(tabTileClickableContainer.props).toBeDefined();
     });
+
+    it("contains the proper tooltip regarding the language", async () => {
+        const resultTile = await renderElementAsObject(
+            <TabResultTile
+                onClose={(id: number) => {
+                    id;
+                }}
+                tabId={1}
+                tabTitle="fake-title"
+                favicon="existing-correct-icon.ico"
+                tabUrl="www.google.com"
+            />
+        );
+
+        const resultTileIcon = getChild(resultTile, 0);
+        expect(resultTileIcon.props.title).toBe("google.com");
+        const resultTileTitle = getChild(resultTile, 1);
+        expect(resultTileTitle.props.title).toBe("Go to: google.com");
+        const resultTileCloseButton = getChild(resultTile, 2);
+        expect(resultTileCloseButton.props.title).toBe("Close");
+    });
 });
