@@ -50,7 +50,7 @@ export const TabResultTile = (props: Props) => {
     };
 
     const trimTitleText = (): string => {
-        const maxTitleTextLength = 60;
+        const maxTitleTextLength = 50;
         return tabTitle.length > maxTitleTextLength
             ? tabTitle.slice(0, maxTitleTextLength).concat("...")
             : tabTitle;
