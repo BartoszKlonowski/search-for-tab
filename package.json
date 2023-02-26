@@ -1,6 +1,6 @@
 {
   "name": "search-for-tab",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Mozilla Firefox extension allowing to search for a specific tab open in current browser window ",
   "main": "manifest.json",
   "scripts": {
