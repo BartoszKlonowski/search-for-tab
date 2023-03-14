@@ -2,6 +2,7 @@ import React from "react";
 import TestRenderer, {act, ReactTestInstance, ReactTestRenderer} from "react-test-renderer";
 import TabResultsList from "../app/src/popup/components/TabResultsList";
 import {TabResultTile} from "../app/src/popup/components/TabResultTile";
+import {TextInput} from "../app/src/popup/components/TextInput";
 
 function renderElement(element: JSX.Element): ReactTestRenderer {
     const component = TestRenderer.create(element);
@@ -20,6 +21,27 @@ function getChild(renderedObject: ReactTestInstance, childIndex: number): ReactT
     const child = renderedObject.children[childIndex] as ReactTestInstance;
     return child;
 }
+
+describe("TextInput", () => {
+    it("renders correctly according to snapshot", () => {
+        const textInput = renderElement(
+            <TextInput
+                id={""}
+                onChange={jest.fn}
+                matchCaseSelected={false}
+                setMatchCase={jest.fn}
+            />
+        );
+        expect(textInput.toJSON()).toMatchSnapshot();
+    });
+
+    it("renders with adjusted styling when selected", async () => {
+        const textInput = await renderElementAsObject(
+            <TextInput id={""} onChange={jest.fn} matchCaseSelected={true} setMatchCase={jest.fn} />
+        );
+        expect(getChild(textInput, 2).props.className).toBe("tab-search-entry-matchCase-selected");
+    });
+});
 
 describe("TabResultsList", () => {
     it("renders correctly according to snapshot", async () => {
