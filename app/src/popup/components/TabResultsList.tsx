@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from "react";
+import React, {useCallback, useMemo, useState} from "react";
 import Browser from "webextension-polyfill";
 import {TabResultTile} from "./TabResultTile";
 
@@ -36,23 +36,29 @@ export const TabResultsList = (props: Props) => {
         );
     };
 
+    const tabsFilter = useCallback(
+        (tabs: Browser.Tabs.Tab[]) => {
+            setAllTabs(
+                tabs.filter(
+                    (tab) =>
+                        tab.title?.includes(tabSearchPhrase) || tab.url?.includes(tabSearchPhrase)
+                )
+            );
+        },
+        [tabSearchPhrase]
+    );
+
     useMemo(
         () =>
             Browser.tabs
                 .query({currentWindow: true})
                 .then((tabs) => {
-                    setAllTabs(
-                        tabs.filter(
-                            (tab) =>
-                                tab.title?.includes(tabSearchPhrase) ||
-                                tab.url?.includes(tabSearchPhrase)
-                        )
-                    );
+                    tabsFilter(tabs);
                 })
                 .catch((error) => {
                     console.error(error);
                 }),
-        [tabSearchPhrase]
+        [tabsFilter]
     );
 
     return (
