@@ -9,6 +9,32 @@ i {
   color: lightsteelblue;
   overflow: hidden;
 }
+.tab-search-entry-matchCase-selected {
+  font-weight: 600;
+  margin: 5px;
+  margin-left: 10px;
+  color: lightsteelblue;
+  overflow: hidden;
+  user-select: none;
+  font-size: medium;
+}
+.tab-search-entry-matchCase-unselected {
+  font-weight: 600;
+  margin: 5px;
+  margin-left: 10px;
+  color: grey;
+  overflow: hidden;
+  user-select: none;
+  font-size: medium;
+}
+.tab-search-entry-matchCase-selected:hover {
+  border-radius: 5px;
+  box-shadow: 0px 3px 3px lightsteelblue;
+}
+.tab-search-entry-matchCase-unselected:hover {
+  border-radius: 5px;
+  box-shadow: 0px 3px 3px grey;
+}
 .popup-view {
   align-content: space-around;
   background-color: whitesmoke;
