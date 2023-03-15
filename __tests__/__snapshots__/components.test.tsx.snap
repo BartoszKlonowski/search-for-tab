@@ -127,6 +127,7 @@ exports[`TextInput renders correctly according to snapshot 1`] = `
   <div
     className="tab-search-entry-matchCase-unselected"
     onClick={[Function]}
+    title="Match Case"
   >
     Aa
   </div>

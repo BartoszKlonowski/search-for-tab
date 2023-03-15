@@ -1,4 +1,5 @@
 import React from "react";
+import {translate} from "../../engine/i18n";
 
 type Props = {
     id: string;
@@ -22,6 +23,7 @@ export const TextInput = (props: Props) => {
             />
             <div
                 onClick={setMatchCase}
+                title={translate("match-case")}
                 className={
                     matchCaseSelected
                         ? "tab-search-entry-matchCase-selected"
