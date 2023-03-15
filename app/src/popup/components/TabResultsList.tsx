@@ -4,10 +4,11 @@ import {TabResultTile} from "./TabResultTile";
 
 type Props = {
     tabSearchPhrase: string;
+    isCaseSensitive: boolean;
 };
 
 export const TabResultsList = (props: Props) => {
-    const {tabSearchPhrase} = props;
+    const {tabSearchPhrase, isCaseSensitive} = props;
 
     if (!tabSearchPhrase.length) {
         return null;
@@ -36,16 +37,21 @@ export const TabResultsList = (props: Props) => {
         );
     };
 
+    const tabsFilterPredicate = (tab: Browser.Tabs.Tab) => {
+        const tabTitleLowerCase = tab.title?.toLowerCase();
+        const tabUrlLowerCase = tab.url?.toLowerCase();
+        const tabSearchPhraseLowerCase = tabSearchPhrase.toLowerCase();
+        return isCaseSensitive
+            ? tab.title?.includes(tabSearchPhrase) || tab.url?.includes(tabSearchPhrase)
+            : tabTitleLowerCase?.includes(tabSearchPhraseLowerCase) ||
+                  tabUrlLowerCase?.includes(tabSearchPhraseLowerCase);
+    };
+
     const tabsFilter = useCallback(
         (tabs: Browser.Tabs.Tab[]) => {
-            setAllTabs(
-                tabs.filter(
-                    (tab) =>
-                        tab.title?.includes(tabSearchPhrase) || tab.url?.includes(tabSearchPhrase)
-                )
-            );
+            setAllTabs(tabs.filter(tabsFilterPredicate));
         },
-        [tabSearchPhrase]
+        [tabsFilterPredicate]
     );
 
     useMemo(
