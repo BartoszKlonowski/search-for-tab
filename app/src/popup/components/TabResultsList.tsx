@@ -37,21 +37,16 @@ export const TabResultsList = (props: Props) => {
         );
     };
 
-    const tabsFilterPredicate = (tab: Browser.Tabs.Tab) => {
-        const tabTitleLowerCase = tab.title?.toLowerCase();
-        const tabUrlLowerCase = tab.url?.toLowerCase();
-        const tabSearchPhraseLowerCase = tabSearchPhrase.toLowerCase();
-        return isCaseSensitive
-            ? tab.title?.includes(tabSearchPhrase) || tab.url?.includes(tabSearchPhrase)
-            : tabTitleLowerCase?.includes(tabSearchPhraseLowerCase) ||
-                  tabUrlLowerCase?.includes(tabSearchPhraseLowerCase);
-    };
+    const tabsFilterPredicate = useCallback(
+        (tab: Browser.Tabs.Tab) => {
+            const tabSearchPhraseLowerCase = tabSearchPhrase.toLowerCase();
 
-    const tabsFilter = useCallback(
-        (tabs: Browser.Tabs.Tab[]) => {
-            setAllTabs(tabs.filter(tabsFilterPredicate));
+            return isCaseSensitive
+                ? tab.title?.includes(tabSearchPhrase) || tab.url?.includes(tabSearchPhrase)
+                : tab.title?.toLowerCase().includes(tabSearchPhraseLowerCase) ||
+                      tab.url?.toLowerCase().includes(tabSearchPhraseLowerCase);
         },
-        [tabsFilterPredicate]
+        [isCaseSensitive, tabSearchPhrase]
     );
 
     useMemo(
@@ -59,12 +54,12 @@ export const TabResultsList = (props: Props) => {
             Browser.tabs
                 .query({currentWindow: true})
                 .then((tabs) => {
-                    tabsFilter(tabs);
+                    setAllTabs(tabs.filter(tabsFilterPredicate));
                 })
                 .catch((error) => {
                     console.error(error);
                 }),
-        [tabsFilter]
+        [tabsFilterPredicate]
     );
 
     return (
