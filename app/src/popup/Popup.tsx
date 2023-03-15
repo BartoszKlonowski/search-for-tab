@@ -31,7 +31,7 @@ export const Popup = (): JSX.Element => {
                 matchCaseSelected={matchCase}
                 setMatchCase={onMatchCaseSelected}
             />
-            <TabResultsList tabSearchPhrase={inputValue} />
+            <TabResultsList tabSearchPhrase={inputValue} isCaseSensitive={matchCase} />
         </div>
     );
 };
