@@ -109,3 +109,27 @@ Object {
   "type": "div",
 }
 `;
+
+exports[`TextInput renders correctly according to snapshot 1`] = `
+<div
+  className="tab-search-entry-list-container"
+>
+  <i
+    className="glyphicon glyphicon-search"
+  />
+  <input
+    className="tab-search-entry-list"
+    id=""
+    onChange={[Function]}
+    placeholder="..."
+    type="text"
+  />
+  <div
+    className="tab-search-entry-matchCase-unselected"
+    onClick={[Function]}
+    title="Match Case"
+  >
+    Aa
+  </div>
+</div>
+`;

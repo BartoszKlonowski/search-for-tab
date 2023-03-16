@@ -2,6 +2,7 @@ import React from "react";
 import TestRenderer, {act, ReactTestInstance, ReactTestRenderer} from "react-test-renderer";
 import TabResultsList from "../app/src/popup/components/TabResultsList";
 import {TabResultTile} from "../app/src/popup/components/TabResultTile";
+import {TextInput} from "../app/src/popup/components/TextInput";
 
 function renderElement(element: JSX.Element): ReactTestRenderer {
     const component = TestRenderer.create(element);
@@ -21,6 +22,27 @@ function getChild(renderedObject: ReactTestInstance, childIndex: number): ReactT
     return child;
 }
 
+describe("TextInput", () => {
+    it("renders correctly according to snapshot", () => {
+        const textInput = renderElement(
+            <TextInput
+                id={""}
+                onChange={jest.fn}
+                matchCaseSelected={false}
+                setMatchCase={jest.fn}
+            />
+        );
+        expect(textInput.toJSON()).toMatchSnapshot();
+    });
+
+    it("renders with adjusted styling when selected", async () => {
+        const textInput = await renderElementAsObject(
+            <TextInput id={""} onChange={jest.fn} matchCaseSelected={true} setMatchCase={jest.fn} />
+        );
+        expect(getChild(textInput, 2).props.className).toBe("tab-search-entry-matchCase-selected");
+    });
+});
+
 describe("TabResultsList", () => {
     it("renders correctly according to snapshot", async () => {
         global.browser.tabs.query = () => {
@@ -29,13 +51,15 @@ describe("TabResultsList", () => {
             });
         };
         const resultsList = await renderElementAsObject(
-            <TabResultsList tabSearchPhrase="test-phrase" />
+            <TabResultsList tabSearchPhrase="test-phrase" isCaseSensitive={false} />
         );
         expect(resultsList).toMatchSnapshot();
     });
 
     it("renders nothing if empty search phrase is passed within props", async () => {
-        const resultsList = await renderElementAsObject(<TabResultsList tabSearchPhrase="" />);
+        const resultsList = await renderElementAsObject(
+            <TabResultsList tabSearchPhrase="" isCaseSensitive={false} />
+        );
         expect(resultsList).toBeNull();
     });
 
@@ -46,7 +70,7 @@ describe("TabResultsList", () => {
             });
         };
         const resultsList = await renderElementAsObject(
-            <TabResultsList tabSearchPhrase="test-search-phrase" />
+            <TabResultsList tabSearchPhrase="test-search-phrase" isCaseSensitive={false} />
         );
         expect(resultsList).toBeDefined();
         expect(getChild(resultsList, 0).type).toBe("li");
@@ -64,7 +88,51 @@ describe("TabResultsList", () => {
                 ]);
             });
         };
-        const resultsList = await renderElementAsObject(<TabResultsList tabSearchPhrase="very" />);
+        const resultsList = await renderElementAsObject(
+            <TabResultsList tabSearchPhrase="very" isCaseSensitive={false} />
+        );
+        expect(resultsList).toBeDefined();
+        expect(resultsList.children.length).toBe(3);
+    });
+
+    it("shows all matches regardless of lower/upper case if case insensitive", async () => {
+        global.browser.tabs.query = () => {
+            return new Promise((resolve) => {
+                resolve([
+                    {id: 1, title: "tab with only lower case"},
+                    {id: 1, title: "tab with both upper and Upper case"},
+                    {id: 3, title: "tab-Including-Upper-case"},
+                    {id: 4, title: "Tab with MULTIPLE Upper Case"},
+                    {id: 5, title: "Tab with upper case but in Tab word"},
+                ]);
+            });
+        };
+        const resultsList = await renderElementAsObject(
+            <TabResultsList tabSearchPhrase="upper" isCaseSensitive={false} />
+        );
+        expect(resultsList).toBeDefined();
+        expect(resultsList.children.length).toBe(4);
+        const resultsListWithUpper = await renderElementAsObject(
+            <TabResultsList tabSearchPhrase="Upper" isCaseSensitive={false} />
+        );
+        expect(resultsListWithUpper.children.length).toBe(4);
+    });
+
+    it("shows all matches for upper case if case sensitive", async () => {
+        global.browser.tabs.query = () => {
+            return new Promise((resolve) => {
+                resolve([
+                    {id: 1, title: "tab with only lower case"},
+                    {id: 1, title: "tab with both upper and Upper case"},
+                    {id: 3, title: "tab-Including-Upper-case"},
+                    {id: 4, title: "Tab with MULTIPLE Upper Case"},
+                    {id: 5, title: "Tab with upper case but in Tab word"},
+                ]);
+            });
+        };
+        const resultsList = await renderElementAsObject(
+            <TabResultsList tabSearchPhrase="Upper" isCaseSensitive={true} />
+        );
         expect(resultsList).toBeDefined();
         expect(resultsList.children.length).toBe(3);
     });
