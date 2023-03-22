@@ -35,7 +35,7 @@ After installing you will see the icon opening the extension popup.
 | | |
 |:-|:-:|
 | The popup, in it's basic state contains the text input field to enter the searching phrase. | <img width="400" height="auto" src=".github/resources/Example-EmptySearch-View.png" alt="" /> |
-| The search can be done: <br/>**by the tab's title** - the text visible on the tab right to the website icon <br/>or <br/>**by the URL of the website** the tab has loaded.<br/>Note that the text input and search is case sensitive. |<img width="400" height="auto" src=".github/resources/SFT-Demo-Rec.gif" alt="" />|
+| The search can be done: <br/>**by the tab's title** - the text visible on the tab right to the website icon <br/>or <br/>**by the URL of the website** the tab has loaded.<br/>Bu default the search phrase is case insensitive, but to enable the case matching click on the `Aa` icon to the right of text input field. |<img width="400" height="auto" src=".github/resources/SFT-Demo-Rec.gif" alt="" />|
 
 **To navigate** to a tab when scrolling through the search results, simply click on it.
 
